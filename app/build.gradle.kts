@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -49,6 +52,17 @@ android {
     }
 }
 
+
+kotlin {
+    // Altre configurazioni
+    sourceSets {
+        getByName("main") {
+            kotlin.srcDir("src/main/kotlin")
+        }
+    }
+}
+
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -66,4 +80,20 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
+    // Dagger - Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.androidx.hilt.compiler)
+
+    // Room
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.paging)
 }
