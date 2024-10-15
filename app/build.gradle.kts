@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -83,6 +84,17 @@ dependencies {
     implementation(libs.moshi)
     implementation(libs.moshi.kotlin)
 
-    //ksp(libs.moshi.ksp)  // Processore di Moshi tramite KSP
+    //Coil
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+    implementation(libs.accompanist.coil) // libreria accompanist, per usare il composable CoilImage
+
+    //Serializable
+    implementation(libs.kotlinx.serialization.json)
+
+
+    // Paging
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.paging.compose)
 
 }
