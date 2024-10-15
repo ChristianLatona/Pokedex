@@ -1,7 +1,9 @@
 package com.example.pokedex.data.responses
 
+import com.squareup.moshi.Json
+
 data class GenerationIii(
     val emerald: Emerald,
-    val firered-leafgreen: FireredLeafgreen,
-    val ruby-sapphire: RubySapphire
+    @Json(name = "firered-leafgreen") val fireredLeafgreen: FireredLeafgreen,
+    @Json(name = "ruby-sapphire") val rubySapphire: RubySapphire
 )

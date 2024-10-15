@@ -10,9 +10,12 @@ class GetPokemonListUseCase(
     suspend operator fun invoke(
         limit: Int = 20,
         offset: Int = 0
-    ): PokemonList {
+    ): List<String> {
 
+        val pokemonList = repository.getPokemonList(limit, offset)
 
-        return repository.getPokemonList(limit, offset)
+        return pokemonList.results.map { item ->
+            item.name
+        }
     }
 }
