@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import com.example.pokedex.R
 import com.example.pokedex.presentation.pokemon_list.composables.PokemonListItem
 
@@ -49,7 +48,10 @@ fun PokemonListScreen (
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                items(pokemonListLazyPagingItems) { pokemon -> // items è una funzione del lazyPaging che cicla gli items
+                items(
+                    count = pokemonListLazyPagingItems.itemCount
+                ) { index -> // items è una funzione del lazyPaging che cicla gli items
+                    val pokemon = pokemonListLazyPagingItems[index]
                     if (pokemon != null) {
                         PokemonListItem(pokemon)
                     }
