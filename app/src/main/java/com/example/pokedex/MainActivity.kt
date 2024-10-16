@@ -4,22 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.pokedex.presentation.pokemon_list.PokemonListScreen
+import com.example.pokedex.presentation.pokemon_list.PokemonListViewModel
 import com.example.pokedex.ui.theme.PokedexTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
 
 @Serializable
 object PokemonListRoute
@@ -42,7 +38,11 @@ class MainActivity : ComponentActivity() {
                         startDestination = PokemonListRoute
                     ) {
                         composable<PokemonListRoute> {
-                            PokemonListScreen(navController)
+                            val pokemonListViewModel = hiltViewModel<PokemonListViewModel>()
+                            PokemonListScreen(
+                                navController,
+                                pokemonListViewModel
+                            )
                         }
                     }
                 }
