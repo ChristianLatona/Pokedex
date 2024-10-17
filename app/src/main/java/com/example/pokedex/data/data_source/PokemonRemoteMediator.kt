@@ -24,24 +24,22 @@ class PokemonRemoteMediator @Inject constructor(
         state: PagingState<Int, PokemonEntity>
     ): MediatorResult { // ogni volta che raggiungiamo la fine della pagina, la funzione load viene chiamata e facciamo un altra chiamata alla pagina successiva
 
-        delay(2000L)
+        state.pages.map { Log.d("RemoteMediator", (it.data+it.nextKey).toString())  }
 
         val page = when(loadType) {  // questo serve solo a capire a che pagina siamo
-            LoadType.REFRESH -> 1
+            LoadType.REFRESH -> 0
             LoadType.PREPEND -> return MediatorResult.Success(
                 endOfPaginationReached = true
             )
             LoadType.APPEND -> {
                 val lastItem = state.lastItemOrNull()
                 if (lastItem == null) {
-                    1
+                    return MediatorResult.Success(endOfPaginationReached = true)
                 } else {
-                    (lastItem.id / state.config.pageSize) + 1 // se sei al 20 elemento della pagina, fai 20/20+1, quindi andrai alla seconda pagina
+                    lastItem.id / state.config.pageSize
                 }
             }
         }
-
-        Log.d("RemoteMediator", "Loading page: $page")
 
         return try {
 
@@ -49,18 +47,18 @@ class PokemonRemoteMediator @Inject constructor(
                 limit = state.config.pageSize,
                 offset = page * state.config.pageSize
             )
-            val endOfPaginationReached = pokemonList.results.isEmpty()
 
-            pokemonDb.withTransaction { // coroutine di room per effettuare operazioni a db
+            pokemonDb.withTransaction { // coroutine di room, tutte le chiamate riescono o vengono annullate
                 if (loadType == LoadType.REFRESH) {
                     pokemonDb.dao.clearAll()
                 }
                 val pokemonEntities = pokemonList.results.map { it.toPokemonEntity() }
                 pokemonDb.dao.upsertAll(pokemonEntities)
+                pokemonDb.dao.pagingSource().invalidate()
             }
 
             return MediatorResult.Success(
-                endOfPaginationReached = endOfPaginationReached
+                endOfPaginationReached = pokemonList.results.isEmpty()
             )
 
         } catch (e: Exception) {

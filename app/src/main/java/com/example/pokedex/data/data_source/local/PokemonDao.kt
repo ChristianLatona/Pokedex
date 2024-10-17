@@ -17,6 +17,9 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemonentity")
     fun pagingSource(): PagingSource<Int, PokemonEntity>
 
+    @Query("SELECT count(*) FROM pokemonentity")
+    fun getCount(): Int
+
     @Query("DELETE FROM pokemonentity") // con il delete non posso togliere tutti i record, devo per forza passare un record nei parametri
     suspend fun clearAll()
 }

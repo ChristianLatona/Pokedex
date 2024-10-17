@@ -50,7 +50,7 @@ fun PokemonListScreen (
             ) {
                 items(
                     count = pokemonListLazyPagingItems.itemCount
-                ) { index -> // items è una funzione del lazyPaging che cicla gli items
+                ) { index ->
                     val pokemon = pokemonListLazyPagingItems[index]
                     if (pokemon != null) {
                         PokemonListItem(pokemon)

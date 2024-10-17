@@ -2,7 +2,7 @@ package com.example.pokedex.data.data_source
 
 import com.example.pokedex.data.data_source.local.PokemonEntity
 import com.example.pokedex.data.responses.Result
-import com.example.pokedex.presentation.models.PokemonItem
+import com.example.pokedex.presentation.models.Pokemon
 
 fun Result.toPokemonEntity(): PokemonEntity {
     val id = url
@@ -19,8 +19,8 @@ fun Result.toPokemonEntity(): PokemonEntity {
     )
 }
 
-fun PokemonEntity.toPokemonItem(): PokemonItem =
-    PokemonItem(
+fun PokemonEntity.toPokemon(): Pokemon =
+    Pokemon(
         pokemonName = name,
         imageUrl = imageUrl
     )

@@ -14,7 +14,6 @@ import com.example.pokedex.data.repository.PokemonRepositoryImpl
 import com.example.pokedex.domain.use_case.GetPokemonInfoUseCase
 import com.example.pokedex.domain.use_case.GetPokemonListUseCase
 import com.example.pokedex.domain.use_case.PokemonUseCases
-import com.example.pokedex.presentation.models.PokemonItem
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -62,7 +61,9 @@ object AppModule {
     @Singleton
     fun providePokemonPager(pokemonApi: PokemonApi, pokemonDatabase: PokemonDatabase): Pager<Int, PokemonEntity> {
         return Pager(
-            config = PagingConfig(pageSize = PokemonApi.PAGE_SIZE),
+            config = PagingConfig(
+                pageSize = PokemonApi.PAGE_SIZE,
+                enablePlaceholders = false),
             remoteMediator = PokemonRemoteMediator(
                 pokemonDb = pokemonDatabase,
                 pokemonApi = pokemonApi
