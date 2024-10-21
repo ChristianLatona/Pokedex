@@ -1,6 +1,6 @@
 package com.example.pokedex.data.responses
 
-data class Pokemon(
+data class PokemonResponse(
     val abilities: List<Ability>,
     val base_experience: Int,
     val cries: Cries,

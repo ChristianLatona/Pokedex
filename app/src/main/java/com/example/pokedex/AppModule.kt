@@ -11,8 +11,8 @@ import com.example.pokedex.data.data_source.local.PokemonDatabase
 import com.example.pokedex.data.data_source.local.PokemonEntity
 import com.example.pokedex.data.repository.PokemonRepository
 import com.example.pokedex.data.repository.PokemonRepositoryImpl
-import com.example.pokedex.domain.use_case.GetPokemonInfoUseCase
-import com.example.pokedex.domain.use_case.GetPokemonListUseCase
+import com.example.pokedex.domain.use_case.GetPokemonDetail
+import com.example.pokedex.domain.use_case.GetPokemonList
 import com.example.pokedex.domain.use_case.PokemonUseCases
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -78,7 +78,7 @@ object AppModule {
         repository: PokemonRepository,
         pager: Pager<Int, PokemonEntity>
     ) = PokemonUseCases(
-        getPokemonListUseCase = GetPokemonListUseCase(repository, pager),
-        getPokemonInfoUseCase = GetPokemonInfoUseCase(repository)
+        getPokemonList = GetPokemonList(repository, pager),
+        getPokemonDetail = GetPokemonDetail(repository)
     )
 }

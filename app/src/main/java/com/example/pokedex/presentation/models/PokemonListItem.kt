@@ -1,6 +1,6 @@
 package com.example.pokedex.presentation.models
 
-data class Pokemon(
+data class PokemonListItem(
     val pokemonName: String,
     val imageUrl: String
 )

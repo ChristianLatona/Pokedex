@@ -15,11 +15,14 @@ import com.example.pokedex.ui.theme.PokedexTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.navigation.toRoute
+import com.example.pokedex.presentation.pokemon_detail.PokemonDetailScreen
 
 @Serializable
 object PokemonListRoute
 
+@Serializable
+data class PokemonDetailRoute(val pokemonName: String)
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -42,6 +45,14 @@ class MainActivity : ComponentActivity() {
                             PokemonListScreen(
                                 navController,
                                 pokemonListViewModel
+                            )
+                        }
+
+                        composable<PokemonDetailRoute> {
+                            val args = it.toRoute<PokemonDetailRoute>()
+                            PokemonDetailScreen(
+                                pokemonName = args.pokemonName,
+                                navController = navController
                             )
                         }
                     }

@@ -6,7 +6,7 @@ import org.junit.Before
 import org.junit.Test
 import com.example.pokedex.data.responses.Result
 
-class PokemonMapperTest {
+class PokemonDetailResponseListItemMapperTest {
 
     private lateinit var result: Result
 

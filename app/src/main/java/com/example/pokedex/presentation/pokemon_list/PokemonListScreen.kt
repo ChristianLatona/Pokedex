@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.pokedex.PokemonDetailRoute
 import com.example.pokedex.R
 import com.example.pokedex.presentation.pokemon_list.composables.PokemonListItem
 
@@ -33,14 +36,17 @@ fun PokemonListScreen (
         color = MaterialTheme.colorScheme.background,
         modifier = Modifier.fillMaxSize()
     ) {
-        Column {
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+        ) {
             Spacer(Modifier.height(20.dp))
             Image(
                 painter = painterResource(R.drawable.pokemon_logo),
                 contentDescription = "Pokemon logo",
-                /*modifier = Modifier
+                modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally)*/
+                    .align(Alignment.CenterHorizontally)
             )
             Spacer(Modifier.height(20.dp))
             LazyColumn(
@@ -53,7 +59,13 @@ fun PokemonListScreen (
                 ) { index ->
                     val pokemon = pokemonListLazyPagingItems[index]
                     if (pokemon != null) {
-                        PokemonListItem(pokemon)
+                        PokemonListItem(
+                            pokemonListItem = pokemon
+                        ) {
+                            navController.navigate(PokemonDetailRoute(
+                                pokemonName = pokemon.pokemonName
+                            ))
+                        }
                     }
                 }
                 item {

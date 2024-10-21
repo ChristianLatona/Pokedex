@@ -24,8 +24,6 @@ class PokemonRemoteMediator @Inject constructor(
         state: PagingState<Int, PokemonEntity>
     ): MediatorResult { // ogni volta che raggiungiamo la fine della pagina, la funzione load viene chiamata e facciamo un altra chiamata alla pagina successiva
 
-        state.pages.map { Log.d("RemoteMediator", (it.data+it.nextKey).toString())  }
-
         val page = when(loadType) {  // questo serve solo a capire a che pagina siamo
             LoadType.REFRESH -> 0
             LoadType.PREPEND -> return MediatorResult.Success(

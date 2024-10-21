@@ -114,5 +114,6 @@ dependencies {
 
     //Testing
     testImplementation(libs.truth)
+    implementation(kotlin("script-runtime"))
 
 }
